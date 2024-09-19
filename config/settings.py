@@ -76,7 +76,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'yxb_video',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'Yhj951215',
         'HOST': '127.0.0.1',
         'PORT': 3306
 
