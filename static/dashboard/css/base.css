@@ -1,0 +1,53 @@
+html,body  {
+padding:0;
+margin:0;
+width:100%;
+height:100%
+}
+
+
+
+#container {
+ position:relative;
+ width:100%;
+ height:100%;
+
+}
+
+
+.left_sidebar{
+ height:100%;
+width:12%;
+ position:absolute;
+ left:0;
+ top:0;
+ Padding:0;
+list-style:none
+}
+
+.navbar {
+margin-bottom:0px
+}
+
+.left_sidebar > li {
+    text-align:center;
+    width:100%;
+     line-height:32px;
+    border:1px solid #cccc;
+    cursor:pointer
+}
+
+.navbar>.container .navbar-brand,.navbar>.container-fluid .navbar-brand {
+   margin-left:0
+}
+
+.s_content {
+
+ height:100%;
+width:88%;
+ position:absolute;
+ top:0;
+ right:0;
+ border:1px solid #cccc
+
+}
