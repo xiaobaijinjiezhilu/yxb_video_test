@@ -1,0 +1,82 @@
+<%inherit file='../index.html' />
+<%def name="content()">
+<%  from django.shortcuts import reverse %>
+<%
+from yxb_app.model.video import VideoType,FromType,NationalityType,IdentityType;
+from yxb_app.utils.permission import client_auth
+%>
+
+<%!
+ from django.shortcuts import reverse
+%>
+<img src="${video.image}" class="video-image">
+<div class="data">
+    <p><span class="span">名称:</span><br>${video.name}</p>
+    <p>
+
+        <span class="span">演员</span>
+    <ul>
+        % for man in video.video_star.all():
+        <li>${man.name}:${IdentityType(man.identity).label}</li>
+        % endfor
+    </ul>
+    </p>
+    <p>
+        <span class="span">简介：</span><br/>
+        <span class="info">
+             ${video.info}
+         </span>
+    </p>
+    <p>
+        <span class="span">选集：</span><br/>
+        % if not client_auth(request) and FromType(video.from_to) == FromType.custom:
+        <a href="${reverse('client_user')}">请先登陆</a>
+        % else:
+    <ul class="number-ul">
+        % for video_sub in video.video_sub.all():
+        <li><a href="${video_sub.url}">第${video_sub.number}集</a></li>
+        % endfor
+    </ul>
+    %endif
+
+    <p>
+        <span class="span">评论区域</span><br/>
+    <div class="comment-area">
+        % if user:
+        <textarea id="comment-content"></textarea>${csrf_token}
+        <button id="comment-submit" data-url="${reverse('comment_add_content')}" data-user-id="${user.id}" data-video-id="${video.id}">提交
+        </button>
+        % else:
+        <a href="${reverse('client_user')}">登录后可评论</a>
+
+        % endif
+
+    </div>
+    </p>
+    <div class="comment-show-area">
+        <span class="span">评论展示</span>
+        <div id="ajax-comment-show"></div>
+        <ul class="comment-show">
+          % for comment in comments:
+          <li>
+              <span>${comment.content}</span>
+              <span>${comment.user.username}</span>
+          </li>
+          % endfor
+        </ul>
+    </div>
+
+</div>
+
+</%def>
+
+<%def name="css()">
+<link rel="stylesheet" href="/static/client/css/video_sub.css">
+</%def>
+
+<%def name="js()">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/client/js/content.js"></script>
+
+
+</%def>

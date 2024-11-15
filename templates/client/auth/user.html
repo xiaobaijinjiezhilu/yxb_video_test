@@ -1,0 +1,31 @@
+<%inherit file='../index.html' />
+<%def name="content()">
+<%! from django.shortcuts import reverse %>
+
+% if user:
+<div class="user">
+    ${user.username}已经登陆
+</div>
+<div>
+    <a id="loginout_submit" href="${reverse('client_user_logout')}">退出登陆</a>
+</div>
+
+% else:
+<form class="user-form">
+    <input type="text" placeholder="用户名" id="username">
+    <input type="password" placeholder="密码" id="password">
+    <button id="login_submit" data-url="${reverse('client_user')}">登陆</button>
+    <button id="regist-submit" type="submit" data-url="${reverse('client_user_register')}">注册</button>
+    ${csrf_token}
+</form>
+%endif
+</%def>
+
+
+<%def name="css()">
+<link rel="stylesheet" href="/static/client/css/user.css">
+</%def>
+
+<%def name="js()">
+<script src="/static/client/js/auth.js"></script>
+</%def>

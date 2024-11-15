@@ -1,0 +1,156 @@
+<%inherit file='../base.html' />
+
+<%def name="content()">
+<%
+from yxb_app.model.video import VideoType,FromType,NationalityType
+%>
+<%!  from django.shortcuts import reverse %>
+<button class="btn btn-info video_btn" id="open-add-video-btn">创建</button><span>${error}</span>
+
+<form class="form-horizontal form_area" id="video-edit-area" action="" method="POST">
+    ${csrf_token}
+    <div class="form-group"><p id="close_form" style="margin-right: 20px;
+    float: right;cursor: pointer;">X</p>
+        <div class="col-sm-10" style="display: flex;">
+            <input id="name" type="text" class="form-control" placeholder="视频名称" name="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="image" placeholder="海报" name="image">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>视频类型</label>
+            <select class="form-control video-select" name="video_type">
+                %for video_type in VideoType:
+                <option class="video_type" value="${video_type.value}">${video_type.label}</option>
+                %endfor
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>国籍</label>
+            <select class="form-control video-select" name="nationality" style="margin-left:27px">
+                %for nationality in NationalityType:
+                <option class="nationality" value="${nationality.value}">${nationality.label}</option>
+                %endfor
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>视频来源</label>
+            <select class="form-control video-select" name="from_to">
+                %for from_to in FromType:
+                <option value="${from_to.value}">${from_to.label}</option>
+                %endfor
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <textarea id="info" name="info" placeholder="简介"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-info" style="margin-left:565px">添加</button>
+
+</form>
+<h3>外链视频</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>名称</th>
+        <th>封面</th>
+        <th>视频来源</th>
+        <th>状态</th>
+        <th>国籍</th>
+        <th>视频类型</th>
+        <th>简介</th>
+        <th>创建时间</th>
+        <th>更新时间</th>
+        <th>操作</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    % for video in ex_videos:
+    <tr>
+        <th>${video.name}</th>
+        <th><img src="${video.image}" class="image"/></th>
+        <th>${FromType(video.from_to).label}</th>
+        <th>${video.status}</th>
+        <th>${NationalityType(video.nationality).label}</th>
+        <th>${VideoType(video.video_type).label}</th>
+        <th>${video.info}</th>
+        <th>${video.created_time.strftime('%Y-%m-%d')}</th>
+        <th>${video.updated_time.strftime('%Y-%m-%d')}</th>
+        <th>
+
+            <a href="${reverse('video_update',kwargs={'video_id':video.id})}">编辑</a>｜
+            <a href="${reverse('video_sub', kwargs={'video_id': video.id})}">详情</a>
+            <a  href="${reverse('video_status_update',kwargs={'video_id':video.id})}">修改状态</a>
+
+        </th>
+    </tr>
+    %endfor
+    </tbody>
+</table>
+<h3 id="custom-h3">自制视频</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>名称</th>
+        <th>封面</th>
+        <th>视频来源</th>
+        <th>状态</th>
+        <th>国籍</th>
+        <th>视频类型</th>
+        <th>简介</th>
+        <th>创建时间</th>
+        <th>更新时间</th>
+        <th>操作</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    % for video in cus_videos:
+    <tr>
+        <th>${video.name}</th>
+        <th><img src="${video.image}" class="image"/></th>
+        <th>${FromType(video.from_to).label}</th>
+        <th>${video.status}</th>
+        <th>${NationalityType(video.nationality).label}</th>
+        <th>${VideoType(video.video_type).label}</th>
+        <th>${video.info}</th>
+        <th>${video.created_time.strftime('%Y-%m-%d')}</th>
+        <th>${video.updated_time.strftime('%Y-%m-%d')}</th>
+        <th>
+
+            <a href="${reverse('video_update',kwargs={'video_id':video.id})}">编辑</a>｜
+            <a href="${reverse('video_sub', kwargs={'video_id': video.id})}">详情</a>
+            <a  href="${reverse('video_status_update',kwargs={'video_id':video.id})}">修改状态</a>
+
+        </th>
+    </tr>
+    %endfor
+    </tbody>
+</table>
+</%def>
+
+<%def name="css()">
+<link href="/static/dashboard/css/external_video.css" rel="stylesheet"/>
+
+</%def>
+
+<%def name="js()">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/dashboard/js/video/externa_video.js"></script>
+</%def>
+<%def name="title()">外部视频</%def>
+

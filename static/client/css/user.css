@@ -1,0 +1,11 @@
+.user-form {
+ width:70%;
+ margin:50% auto;
+ padding: 20% 20%;
+
+}
+
+input {
+    display:block;
+     margin-bottom:20px
+}

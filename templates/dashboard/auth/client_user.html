@@ -1,0 +1,42 @@
+<%inherit file='../base.html' />
+<%!  from django.shortcuts import reverse %>
+<%def name="content()">
+<table class="table">
+    <thead>
+    <tr>
+        <th>用户名</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>控制</th>
+    </tr>
+    </thead>
+    <tbody>
+    % for user in users:
+    <tr>
+        <td>${user.username}</td>
+        <td>${user.status}</td>
+        <td>${user.created_time.strftime('%Y-%m-%d')}</td>
+        <td>
+            % if user.status:
+            <button data-url="${reverse('dashboard_client_user')}" data-user-id="${user.id}" id="user-status-submit">
+                冻结
+            </button>
+            % else:
+            <button data-url="${reverse('dashboard_client_user')}" data-user-id="${user.id}" id="user-status-submit1">
+                恢复
+            </button>
+            % endif
+            <button >评论</button>
+        </td>
+
+        ${csrf_token}
+    </tr>
+    % endfor
+
+    </tbody>
+</table>
+</%def>
+<%def name="js()">
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<script src="/static/dashboard/js/user.js"></script>
+</%def>

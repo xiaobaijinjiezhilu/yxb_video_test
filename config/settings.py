@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'yxb_app'
+    'yxb_app',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +125,8 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# qiniu
+QINIU_AK = 'UbiJifRiF6LhQ5t2MxFgWpUkcgFwlNPPAo67s0ut'
+QINIU_SK = 'T6J4wjJZoWbRCuL_nC-P-OtTK3Y7ki5qnNGQZw6F'
+QINIU_VIDEO = 'yxb2'
+QINIU_VIDEO_URL = 'http://sl136rru6.hd-bkt.clouddn.com'

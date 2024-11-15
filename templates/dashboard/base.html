@@ -10,11 +10,12 @@
 </head>
 <body>
 <%include file="nav.html" />
+<%!  from django.shortcuts import reverse %>
 <div id="container">
     <ul class="left_sidebar">
-        <li>管理员</li>
-        <li>用户</li>
-        <li>视频</li>
+        <li><a href="${reverse('admin')}">管理员</a></li>
+        <li><a href="${reverse('dashboard_client_user')}">用户</a></li>
+        <li><a href="${reverse('external_video')}">视频</a></li>
     </ul>
     <div class="s_content">
         ${self.content()}

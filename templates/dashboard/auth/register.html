@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+</head>
+
+
+<style>
+    #form_content {
+        width:20%;
+        margin:0 auto;
+        margin-top:200px
+
+    }
+    input {
+    width:100%;
+    display: block
+    }
+
+    #submit, #reset{
+        width:40px;
+        display: inline-block
+    }
+    #reset {
+    margin-left:195px
+    }
+</style>
+<body>
+<form  id="form_content" method="POST" action="register">
+        ${csrf_token}
+        <input name="username" type="text" placeholder="请输入用户名"/>
+        <input name="password" type="password" placeholder="请输入密码">
+        <input name="check_password" type="password" placeholder="请确认密码">
+        <input id="submit" type="submit" value="提交">
+
+    </form>
+
+    {{error}}
+</body>
+</html>

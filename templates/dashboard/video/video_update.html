@@ -1,0 +1,74 @@
+<%inherit file='../base.html' />
+<%!
+from yxb_app.model.video import VideoType,FromType,NationalityType
+%>
+<%!  from django.shortcuts import reverse %>
+<%def name="content()">
+<form class="form-horizontal form_area" id="video-edit-area" action="${reverse('external_video')}" method="POST">
+    ${csrf_token}
+    <div class="form-group"><p id="close_form" style="margin-right: 20px;
+    float: right;cursor: pointer;">X</p>
+        <div class="col-sm-10">
+            <label>名称</label>
+            <input value="${video.name}" id="name" type="text" class="form-control" placeholder="视频名称" name="name">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>海报</label>
+            <input value="${video.image}" type="text" class="form-control" id="image" placeholder="海报" name="image">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>视频类型</label>
+            <select class="form-control video-select" name="video_type">
+                <option value="${VideoType(video.video_type).value}">${VideoType(video.video_type).label}</option>
+                %for video_type in VideoType:
+                <option class="video_type" value="${video_type.value}">${video_type.label}</option>
+                %endfor
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>国籍</label>
+            <select class="form-control video-select" name="nationality">
+                <option value="${NationalityType(video.nationality).value}">
+                    ${NationalityType(video.nationality).label}
+                </option>
+                %for nationality in NationalityType:
+                <option class="nationality" value="${nationality.value}">${NationalityType(video.nationality).label}
+                </option>
+                %endfor
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <label>视频来源</label>
+            <select class="form-control video-select" name="from_to">
+                <option value="${FromType(video.from_to).value}">${FromType(video.from_to).label}</option>
+                %for from_to in FromType:
+                <option value="${from_to.value}">${FromType(video.from_to).label}</option>
+                %endfor
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-10">
+            <textarea id="info" name="info" placeholder="简介">${video.info}</textarea>
+        </div>
+    </div>
+    <input type="hidden" name="video_id" value="${video.id}"/>
+    <button type="submit" class="btn btn-info" style="margin-left:565px">添加</button>
+
+</form>
+</%def>
+<%def name="title()">首页</%def>
+
+
+

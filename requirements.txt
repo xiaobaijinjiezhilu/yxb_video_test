@@ -1,2 +1,5 @@
 django==2.1.2
 mako==1.0.7
+celery
+django-celery
+redis==2.10.6
